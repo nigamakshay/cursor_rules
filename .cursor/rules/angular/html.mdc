@@ -1,0 +1,77 @@
+---
+description: 
+globs: *.html
+alwaysApply: false
+---
+
+@html-data-ids.mdc
+
+Template Organization:
+1. Maintain clean, minimal templates
+2. Limit to one component per template file
+3. Use '/>' syntax for self-closing elements
+4. Apply 2-space indentation consistently
+5. Insert blank lines between logical sections
+6. Utilize templateRef and ContentChild for maintainable components
+
+Template Variable Naming:
+1. Choose descriptive reference names (e.g., #tableContent, #tableRowTemplate)
+2. Pass context through template outlets
+3. Apply ng-template for reusable template blocks
+4. Use pattern: #templateName="templateType"
+
+Loading States:
+1. Display shimmer placeholders while fetching data
+2. Show error messages when operations fail
+3. Include loading spinners for async operations
+4. Manage empty/null states gracefully
+
+Ionic Layout Components:
+1. Structure layouts with ion-grid, ion-row, ion-col
+2. Apply Ionic utility classes (ion-justify-content-center, ion-padding)
+3. Reuse existing components (app-dropdown, app-input)
+
+Property Binding:
+1. Apply [] for property binding
+2. Apply () for event binding
+3. Apply [()] for bidirectional binding
+4. Position bound attributes after static ones
+
+Component Interaction:
+1. Emit Output events with clear names (onDismissingProfileCard, onFilterSelectionChanged)
+2. Enable two-way binding for form controls
+3. Pass complex objects through typed interfaces
+4. Subscribe to observables via async pipe
+
+Conditional Display:
+1. Prefer ng-container for structural directives over extra div elements
+2. Apply *ngIf for conditional rendering
+3. Use ngSwitch for multiple condition branches
+4. Minimize nested *ngIf where possible
+
+Event Binding:
+1. Name handlers to reflect their action
+2. Forward $event when required
+3. Keep template handlers simple
+4. Use standard event names (click, onChange, etc.)
+
+Localization:
+1. Apply translate pipe for text content
+2. Organize translation keys by feature area
+3. Maintain hierarchical key structure
+4. Support parameterized translations
+
+Form Templates:
+1. Add ngDefaultControl when necessary
+2. Bind form controls and groups correctly
+
+Content Projection:
+1. Use ng-content for flexible slot insertion
+2. Define multiple projection slots when needed
+3. Access templates via content child decorators
+
+Grid Layout:
+1. Build layouts with ion-grid
+2. Configure responsive column breakpoints
+3. Apply alignment utility classes
+4. Use grid structure for form layouts

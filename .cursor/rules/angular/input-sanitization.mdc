@@ -1,0 +1,83 @@
+---
+description:
+globs: *.ts
+alwaysApply: false
+---
+
+1. Inject `InputSanitizerService` in any component processing user input
+2. Call the service's `sanitize()` method with the correct type parameter
+3. Account for null/undefined results from sanitization
+
+## Available Sanitization Types:
+1. **'text'** - Standard text cleaning (strips HTML tags and attributes)
+2. **'search'** - Identical to text sanitization
+3. **'email'** - Text cleaning combined with email format verification
+4. **'phone'** - Text cleaning combined with phone format verification
+5. **'date'** - Text cleaning combined with date format verification
+6. **'editor'** - Rich text cleaning (preserves allowed HTML tags)
+
+## Implementation Pattern:
+1. **Standard Sanitization Flow**: 
+   ```typescript
+   let rawValue = event.target.value;
+   let sanitizedValue = this.sanitizer.sanitize(rawValue, this.type) || '';
+   // Reflect only valid characters in the input
+   if (sanitizedValue !== rawValue) {
+     event.target.value = sanitizedValue;
+     this.formControl.setValue(sanitizedValue, { emitEvent: false });
+   }
+   ```
+2. **Immediate Field Update**: Refresh input field with sanitized content right away
+3. **Form Control Synchronization**: Update control value using emitEvent: false to avoid infinite loops
+4. **Live Character Removal**: Strip invalid characters during typing for instant user feedback
+
+## Security Guidelines:
+1. **Sanitize all user input** prior to processing or persistence
+2. **Select the correct sanitization type** matching the input field purpose
+3. **Handle failures gracefully** when sanitization returns null
+4. **Refresh UI instantly** with cleaned values
+5. **Keep form control in sync** after sanitization
+
+## Validation Rules:
+1. **Email**: Regex-based format verification
+2. **Phone**: Centralized in `InputSanitizerService`
+   - Set `type="phone"` on app-input for automatic sanitization, formatting, and pattern validation
+   - Processing pipeline: XSS removal → character filtering → format as (123) 456-7890
+   - Single location for all phone handling logic
+   - Pattern auto-assigned in `ngOnInit` via `sanitizer.getPatternForType(type)` - no explicit pattern needed
+   - PhoneMaskDirective unnecessary when using sanitizer with type="phone"
+3. **Date**: Validated using Date.parse()
+4. **Text**: HTML tag stripping
+5. **Pattern Registry**: All patterns managed in `InputSanitizerService.getPatternForType()`
+6. **Efficiency**: Resolve patterns once during ngOnInit, not per change detection
+7. **Event Binding**: Use `ionInput` event for real-time sanitization during typing
+
+## Error Management:
+1. **Null Safety**: Verify sanitization results before use
+2. **Default Values**: Return empty string when sanitization fails
+3. **User Notification**: Optionally alert users about invalid formats
+
+## Performance Tips:
+1. **Minimize DOM Updates**: Only modify input when sanitized value differs
+2. **Optimize Control Updates**: Sync form control selectively
+
+## Template Usage:
+1. **Event Handlers**: Invoke sanitization in input change callbacks
+2. **Value Display**: Ensure templates show sanitized content
+3. **Validation Integration**: Combine sanitization with form validators
+
+## Components Requiring Sanitization:
+1. Native HTML input elements
+2. Ionic input components:
+  <app-input>
+  <ion-input>
+  <ion-textarea>
+  <ion-searchbar>
+  <ion-datetime>
+  <ion-editor>
+  <ion-select> (when custom values permitted)
+  <ion-range> (when custom values permitted)
+3. Custom search handlers or onChange callbacks passed to sanitized components may need explicit sanitization
+
+## InnerHTML Handling:
+1. Prefer [textContent] over [innerHTML] for escaped output

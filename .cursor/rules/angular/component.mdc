@@ -1,0 +1,119 @@
+---
+description: 
+globs: *.ts
+alwaysApply: false
+---
+
+Component Architecture:
+1. Apply @Component decorator with necessary metadata fields
+2. Adopt standalone: true approach for newly created components
+3. Add CUSTOM_ELEMENTS_SCHEMA to the schemas configuration
+4. Enable ChangeDetectionStrategy.OnPush for optimized rendering
+5. Organize imports by category (Angular core, services, models, etc.)
+
+Metadata Configuration:
+1. Apply kebab-case naming for selectors (e.g., 'app-button', 'auth-form')
+2. Align templateUrl with the component filename (e.g., './app-button.component.html')
+3. Omit styleUrls when no styles are defined
+4. Declare all dependencies in imports array for standalone components
+5. Store component styles in the matching .scss file
+
+Input/Output Properties:
+1. Place @Input() decorators at the class top with assigned defaults
+2. Cluster related @Input properties (e.g., form-related, styling-related)
+3. Position @Output() decorators below inputs
+4. Assign default values to optional inputs
+5. Choose meaningful names for event emitters
+
+Lifecycle Management:
+1. Use OnInit for setup logic
+2. Include OnDestroy for resource cleanup
+3. Leverage ViewWillEnter/ViewWillLeave for Ionic page events
+4. Arrange lifecycle hooks by execution sequence
+5. Maintain concise and focused lifecycle methods
+
+Internal Logic:
+1. Type all class properties correctly
+2. Mark internal helper methods as private
+3. Expose public methods for external interactions
+4. Add robust error handling and logging
+5. Adhere to single responsibility principle
+
+Service Injection:
+1. Organize constructor services by domain
+2. Apply private modifier to injected services
+3. Limit constructor parameter count
+4. Arrange parameters in logical order
+5. Employ facade services for state operations
+
+Observable Management:
+1. Define destroy$ subject for unsubscription handling
+2. Apply takeUntil(destroy$) to manage subscriptions
+3. Use generics for proper observable typing
+4. Account for null/undefined in data streams
+5. Finalize all subjects within ngOnDestroy
+
+Inter-Component Communication:
+1. Emit events via EventEmitter for child-to-parent flow
+2. Define interfaces for complex data structures
+3. Use shared services for sibling component communication
+4. Maintain consistent event naming patterns
+
+Error Management:
+1. Define clear error states
+2. Apply error boundaries as needed
+3. Log errors with descriptive messages
+
+Code Structure:
+1. Cluster related methods together
+2. Select clear method names
+3. Write single-purpose methods
+4. Follow uniform naming conventions
+5. Apply appropriate access modifiers (private/public)
+
+Initialization Pattern:
+1. Execute all setup logic in ngOnInit
+2. Extract initialization into separate methods called from ngOnInit for clarity
+
+Form Management:
+1. Apply FormControl with explicit typing
+2. Combine related controls in FormGroup
+3. Build custom validators when necessary
+4. Subscribe to valueChanges for state monitoring
+5. Define error keys object for validation feedback
+
+Modal/Dialog Handling:
+1. Reference modals via @ViewChild
+2. Create dismiss/close handler methods
+3. Transfer data through modal parameters
+4. Manage modal lifecycle events
+5. Specify return types for modal outcomes
+
+Configuration Settings:
+1. Store default values in constants
+2. Implement feature toggles when required
+
+Presentation Layer:
+1. Apply containerClass for layout control
+2. Support custom styling options
+3. Manage dynamic class bindings
+4. Control component visibility states
+5. Enable responsive design patterns
+
+Data Processing:
+1. Build utility methods for formatting
+2. Manage type conversions
+3. Implement validation helpers
+4. Apply consistent date and number formatting
+5. Handle null/undefined values safely
+
+Integration Patterns:
+1. Connect to facade services for state
+2. Configure module imports properly
+3. Coordinate cross-component interactions
+
+Performance Guidelines:
+1. Prefer async pipe for observables
+2. Configure appropriate change detection
+3. Minimize unnecessary re-renders
+4. Prevent memory leaks from subscriptions

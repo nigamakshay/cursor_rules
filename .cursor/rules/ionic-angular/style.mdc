@@ -1,0 +1,34 @@
+---
+description: 
+globs: *.scss
+alwaysApply: false
+---
+
+CSS Variables:
+1. Apply --ion- prefix for Ionic framework variables
+2. Apply --app- prefix for application-specific variables
+3. Use kebab-case for all variable names
+4. Cluster related variables together
+5. Reference predefined font size variables:
+    e.g., --app-font-size-sm, --app-font-size-lg
+6. Reference predefined breakpoint variables
+
+Variable Naming:
+1. Select descriptive names reflecting purpose
+2. Keep naming patterns consistent within groups
+3. Use semantic color identifiers (e.g., navy-blue, soft-gray)
+4. Define component-level color variables:         
+   e.g., 
+    --app-table-bg-color
+    --app-table-header-bg-color
+    --app-table-wrapper-bg-color
+5. Create base variables then derive usage-specific ones for maintainability
+   e.g.,
+    --app-gray-light: #f2f2f2;
+    --app-button-disabled-bg: var(--app-gray-light);
+    --app-header-bg: var(--app-blue-light);
+
+Variable Values:
+1. Provide RGB values for colors when required
+2. Reference other variables using var(--name) syntax
+3. Specify font sizes in relative units (rem)
