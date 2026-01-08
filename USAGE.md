@@ -52,3 +52,33 @@
 - Ask for diffs, not full file rewrites
 - Batch related changes in single request
 - Use autocomplete for repetitive edits
+
+## Composer vs Chat
+- **Composer**: Multi-file changes, refactoring across codebase
+- **Chat**: Single-file edits, Q&A, debugging
+- Use Composer for coordinated changes, Chat for focused edits
+
+## Codebase Search
+- Use semantic search (`@codebase`) for "how does X work?" questions
+- Search specific directories to narrow scope
+- Review search results before attaching to context
+
+## References & Context
+- `@codebase` for semantic understanding
+- `@docs` for documentation lookup
+- `@web` for external research
+- `@folder` sparingly—prefer specific files
+- Use `.cursorignore` to exclude node_modules, build outputs, etc.
+
+## Prompt Engineering
+- Structure: Goal → Context → Constraints → Expected output
+- One task per prompt for clarity
+- Iterate: refine based on output, don't rewrite entire prompt
+- Use examples when pattern matching is needed
+
+## Workflow Tips
+- Review changes before accepting (especially multi-file)
+- Test incrementally—don't wait for "complete" solution
+- Use git commits between major changes for easy rollback
+- Manual edits for trivial fixes save tokens
+- Let Cursor generate boilerplate, you handle business logic
